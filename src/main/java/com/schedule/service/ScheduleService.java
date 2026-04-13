@@ -2,6 +2,9 @@ package com.schedule.service;
 
 import com.schedule.dto.*;
 import com.schedule.entity.Schedule;
+import com.schedule.exception.InvalidPasswordException;
+import com.schedule.exception.InvalidRequestException;
+import com.schedule.exception.ScheduleNotFoundException;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,16 +21,35 @@ public class ScheduleService {
 
     @Transactional
     public CreateScheduleResponseDto save(CreateScheduleRequestDto request) {
+
+        if (request.getTitle() == null || request.getTitle().isBlank()) {
+            throw new InvalidRequestException("제목은 필수 값 입니다.");
+        }
+
+        if (request.getContent() == null || request.getContent().isBlank()) {
+            throw new InvalidRequestException("내용은 필수 값 입니다.");
+        }
+
+        if (request.getAuthor() == null || request.getAuthor().isBlank()) {
+            throw new InvalidRequestException("작성자명은 필수 값 입니다.");
+        }
+
+        if (request.getPassword() == null || request.getPassword().isBlank()) {
+            throw new InvalidRequestException("비밀번호는 필수 값 입니다.");
+        }
+
         Schedule schedule = new Schedule(
                 request.getTitle(),
                 request.getContent(),
                 request.getAuthor(),
                 request.getPassword()
         );
+
         Schedule saved = scheduleRepository.save(schedule);
 
         return new CreateScheduleResponseDto(saved);
     }
+
 
     @Transactional(readOnly = true)
     public List<GetScheduleResponseDto> getAll(String author) {
@@ -50,19 +72,32 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public GetScheduleResponseDto getOne(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
-                () -> new IllegalStateException("해당 id에 대한 일정이 없습니다. id = " + scheduleId)
+                () -> new ScheduleNotFoundException("해당 id에 대한 일정이 없습니다. id = " + scheduleId)
         );
         return new GetScheduleResponseDto(schedule);
     }
 
     @Transactional
     public UpdateScheduleResponseDto update(Long scheduleId, UpdateScheduleRequestDto request) {
+
+        if (request.getTitle() == null || request.getTitle().isBlank()) {
+            throw new InvalidRequestException("제목은 필수 값 입니다.");
+        }
+
+        if (request.getAuthor() == null || request.getAuthor().isBlank()) {
+            throw new InvalidRequestException("작성자명은 필수 값 입니다.");
+        }
+
+        if (request.getPassword() == null || request.getPassword().isBlank()) {
+            throw new InvalidRequestException("비밀번호는 필수 값 입니다.");
+        }
+
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
-                () -> new IllegalStateException("해당 id에 대한 일정이 없습니다. id = " + scheduleId)
+                () -> new ScheduleNotFoundException("해당 id에 대한 일정이 없습니다. id = " + scheduleId)
         );
 
         if(!schedule.getPassword().equals(request.getPassword())) {
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
 
         // 더티 체킹
@@ -72,13 +107,17 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void delete(Long scheduleId) {
+    public void delete(Long scheduleId, DeleteScheduleRequestDto request) {
 
-        boolean existence = scheduleRepository.existsById(scheduleId);
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new ScheduleNotFoundException("해당 id에 대한 일정이 없습니다. id = " + scheduleId));
 
-        if(!existence) {
-            throw new IllegalStateException("해당 id에 대한 일정이 없습니다. id = " + scheduleId);
+        if (!schedule.getPassword().equals(request.getPassword())) {
+            throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
+
         scheduleRepository.deleteById(scheduleId);
     }
+
+
 }
