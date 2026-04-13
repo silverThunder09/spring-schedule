@@ -420,7 +420,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 
 ## ERD
-![ERD](src/main/resources/docs/erd.png)
+![ERD](schedule/scr/main/resources/docs/erd.png)
 
 ## 프로젝트 구조
 
