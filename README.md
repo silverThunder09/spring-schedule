@@ -433,6 +433,7 @@ src/main/java/com/schedule/
                     │    └──          ErrorResponseDto.java
                     ├── exception/    
                     │    ├──          InvalidPasswordException.java
+                    │    ├──          InvalidRequestException.java
                     │    └──          ScheduleNotFoundException
                     │                        
                     ├── entity/       Schedule.java
