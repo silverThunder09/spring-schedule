@@ -391,21 +391,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 **204 NO CONTENT :** 삭제 성공
 
 **성공 응답**
-```
-
-[]
-
-```
-
-| **이름**     | **데이터타입** | **필수여부** | **설명**   |
-|------------|-----------| --- |----------|
-| `id`       | `Long`    | **필수** | 일정 고유 id |
-| `title`    | `String`  | **필수** | 일정 제목    |
-| `content`  | `String`  | **필수** | 일정 내용    |
-| `author`   | `String`  | **필수** | 작성자명     |
-| `createdAt` | `LocalDateTime` | **필수** | 작성일 |
-| `modifiedAt` | `LocalDateTime` | **필수** | 수정일 |
-
+없음
 
 **실패 응답 예시**
 
@@ -418,15 +404,14 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 </details>
 
 
-
 ## ERD
-![ERD](/src/main/resources/docs/ERD.png)
+![ERD](src/main/resources/docs/ERD.png)
 
 ## 프로젝트 구조
 
 ```
 src/main/java/com/schedule/
-                    ├── ScheduleApplicaion.java
+                    ├── ScheduleApplication.java
                     ├── controller/   ScheduleController.java
                     ├── dto/          CreateScheduleRequestDto.java
                     │    ├──          CreateScheduleResponseDto.java
