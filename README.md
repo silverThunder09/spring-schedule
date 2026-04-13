@@ -97,8 +97,9 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 {
 
-    "error": "제목은 필수 값 입니다."
+    "error": "필수 값이 입력되어 있지 않습니다"
 }
+
 </details>
 
 # 전체 조회 API
@@ -394,6 +395,9 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 없음
 
 **실패 응답 예시**
+- 비밀번호가 일치하지 않는 경우
+- 해당 id에 대한 일정이 존재하지 않는 경우
+
 
 **400 Bad Request :** 삭제 실패
 
@@ -401,6 +405,14 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
     "error": "비밀번호가 일치하지 않습니다."
 }
+,
+
+{
+
+    "error": "해당 id에 대한 일정이 없습니다. id = 10"
+}
+
+
 </details>
 
 
@@ -417,7 +429,11 @@ src/main/java/com/schedule/
                     │    ├──          CreateScheduleResponseDto.java
                     │    ├──          GetScheduleResponseDto.java
                     │    ├──          UpdateScheduleRequestDto.java
-                    │    └──          UpdateScheduleResponseDto.java
+                    │    ├──          UpdateScheduleResponseDto.java
+                    │    └──          ErrorResponseDto.java
+                    ├── exception/    
+                    │    ├──          InvalidPasswordException.java
+                    │    └──          ScheduleNotFoundException
                     │                        
                     ├── entity/       Schedule.java
                     │                 BaseEntity.java
