@@ -444,7 +444,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 
 ## ERD
-![ERD](src/main/resources/docs/ERD.png)
+![ERD](src/main/resources/docs/ERD_2.png)
 
 ## 프로젝트 구조
 
@@ -471,13 +471,16 @@ src/main/java/com/schedule/
 
 
 1. 3 Layer Architecture(Controller, Service, Repository)를 적절히 적용했는지 확인해 보고, 왜 이러한 구조가 필요한지 작성해 주세요.
-->Controller, Service, Repository 3개의 레이어로 분리하면 각 레이어가 자신의 역할에만 집중할 수 있습니다. Controller는 HTTP 요청/응답 처리만, 
-Service는 비즈니스 로직만, Repository는 DB 접근만 담당합니다. 
+->
+Controller, Service, Repository 3개의 레이어로 분리하면 각 레이어가 자신의 역할에만 집중할 수 있습니다. <br>
+Controller는 HTTP 요청/응답 처리만, Service는 비즈니스 로직만, Repository는 DB 접근만 담당합니다. 
 이렇게 역할을 분리하면 특정 기능을 수정할 때 변경 범위가 해당 레이어에만 국한되어 유지보수가 쉬워지고, 각 레이어를 독립적으로 테스트할 수 있습니다.
 
 
-2. `@RequestParam`, `@PathVariable`, `@RequestBody`가 각각 어떤 어노테이션인지, 어떤 특징을 갖고 있는지 작성해 주세요.
+`@RequestParam`, `@PathVariable`, `@RequestBody`가 각각 어떤 어노테이션인지, 어떤 특징을 갖고 있는지 작성해 주세요.
 ->
-`@PathVariable`은 URL 경로 안의 값을 추출합니다. `/schedules/3`에서 `3`을 Long 타입으로 받을 때 사용합니다.
-`@RequestParam`은 URL 뒤 쿼리스트링의 값을 추출합니다. `/schedules?author=홍길동`에서 `홍길동`을 받을 때 사용하며, `required = false`로 선택적 파라미터를 처리할 수 있습니다.
+`@PathVariable`은 URL 경로 안의 값을 추출합니다.<br>
+`/schedules/3`에서 `3`을 Long 타입으로 받을 때 사용합니다.<br>
+`@RequestParam`은 URL 뒤 쿼리스트링의 값을 추출합니다.<br>
+`/schedules?author=홍길동`에서 `홍길동`을 받을 때 사용하며,`required = false`로 선택적 파라미터를 처리할 수 있습니다.<br>
 `@RequestBody`는 HTTP 요청 본문의 JSON 데이터를 Java 객체로 변환합니다. POST, PATCH, DELETE 요청에서 클라이언트가 보내는 JSON을 DTO로 받을 때 사용합니다.
