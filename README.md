@@ -95,9 +95,39 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 **실패 응답 예시**
 
+**400 Bad Request** :
+- 제목이 누락된 경우
+- 내용이 누락된 경우
+- 작성자명이 누락된 경우
+- 비밀번호가 누락된 경우
+
+
+1. 제목 누락
+
 {
 
-    "error": "필수 값이 입력되어 있지 않습니다"
+    "error": "제목은 필수 값 입니다."
+}
+
+2. 내용 누락
+
+{
+
+    "error": "내용은 필수 값 입니다."
+}
+
+3. 작성자명 누락
+
+{
+
+    "error": "작성자명은 필수 값 입니다."
+}
+
+4. 비밀번호 누락
+
+{
+
+    "error": "비밀번호는 필수 값 입니다."
 }
 
 </details>
@@ -201,7 +231,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 **02 : 요청 (Request)**
 
-**a. Parameter & Querystring**
+**a. PathVariable**
 
 | **이름** | **데이터타입** | **설명** |
 |--------|-----------| --- |
@@ -250,7 +280,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 {
 
-    "error": "해당 id에 대한 일정이 없습니다."
+    "error": "해당 id에 대한 일정이 없습니다. id = 10"
 }
 </details>
 
@@ -270,7 +300,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 **02 : 요청 (Request)**
 
-**a. Parameter & Querystring**
+**a. PathVariable**
 
 | **이름** | **데이터타입** | **설명** |
 |--------|-----------| --- |
@@ -357,7 +387,7 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 **02 : 요청 (Request)**
 
-**a. Parameter & Querystring**
+**a. PathVariable**
 
 | **이름** | **데이터타입** | **설명**        |
 |--------|-----------|---------------|
@@ -384,15 +414,12 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 | `Content-Type` | `String` | application/json |
 
 **b. Response Body**
-
-| **이름**     | **데이터타입** | **설명**  |
-|------------| --- |---------|
-| `password` | `String` | 기존 비밀번호 |
+- 없음
 
 **204 NO CONTENT :** 삭제 성공
 
 **성공 응답**
-없음
+- 없음
 
 **실패 응답 예시**
 - 비밀번호가 일치하지 않는 경우
@@ -440,3 +467,17 @@ src/main/java/com/schedule/
                     │                 BaseEntity.java
                     ├── repository/   ScheduleRepository.java
                     └── service/      ScheduleService.java
+```
+
+
+1. 3 Layer Architecture(Controller, Service, Repository)를 적절히 적용했는지 확인해 보고, 왜 이러한 구조가 필요한지 작성해 주세요.
+->Controller, Service, Repository 3개의 레이어로 분리하면 각 레이어가 자신의 역할에만 집중할 수 있습니다. Controller는 HTTP 요청/응답 처리만, 
+Service는 비즈니스 로직만, Repository는 DB 접근만 담당합니다. 
+이렇게 역할을 분리하면 특정 기능을 수정할 때 변경 범위가 해당 레이어에만 국한되어 유지보수가 쉬워지고, 각 레이어를 독립적으로 테스트할 수 있습니다.
+
+
+2. `@RequestParam`, `@PathVariable`, `@RequestBody`가 각각 어떤 어노테이션인지, 어떤 특징을 갖고 있는지 작성해 주세요.
+->
+`@PathVariable`은 URL 경로 안의 값을 추출합니다. `/schedules/3`에서 `3`을 Long 타입으로 받을 때 사용합니다.
+`@RequestParam`은 URL 뒤 쿼리스트링의 값을 추출합니다. `/schedules?author=홍길동`에서 `홍길동`을 받을 때 사용하며, `required = false`로 선택적 파라미터를 처리할 수 있습니다.
+`@RequestBody`는 HTTP 요청 본문의 JSON 데이터를 Java 객체로 변환합니다. POST, PATCH, DELETE 요청에서 클라이언트가 보내는 JSON을 DTO로 받을 때 사용합니다.
