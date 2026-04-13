@@ -430,7 +430,7 @@ src/main/java/com/schedule/
                     ├── controller/   ScheduleController.java
                     ├── dto/          CreateScheduleRequestDto.java
                     │    ├──          CreateScheduleResponseDto.java
-                    │    ├──          GetScheduleRequestDto.java
+                    │    ├──          GetScheduleResponseDto.java
                     │    ├──          UpdateScheduleRequestDto.java
                     │    └──          UpdateScheduleResponseDto.java
                     │                        
