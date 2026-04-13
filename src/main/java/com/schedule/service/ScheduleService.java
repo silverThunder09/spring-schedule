@@ -70,4 +70,15 @@ public class ScheduleService {
 
         return new UpdateScheduleResponseDto(schedule);
     }
+
+    @Transactional
+    public void delete(Long scheduleId) {
+
+        boolean existence = scheduleRepository.existsById(scheduleId);
+
+        if(!existence) {
+            throw new IllegalStateException("해당 id에 대한 일정이 없습니다. id = " + scheduleId);
+        }
+        scheduleRepository.deleteById(scheduleId);
+    }
 }
