@@ -11,6 +11,7 @@ import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class ScheduleService {
     }
 
     @Transactional
-    public UpdateScheduleResponseDto update(Long scheduleId, UpdateScheduleRequestDto request) {
+    public UpdateScheduleResponseDto  update(Long scheduleId, UpdateScheduleRequestDto request) {
 
         if (request.getTitle() == null || request.getTitle().isBlank()) {
             throw new InvalidRequestException("제목은 필수 값 입니다.");
@@ -118,6 +119,11 @@ public class ScheduleService {
         if(!schedule.getPassword().equals(request.getPassword())) {
             throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
         }
+
+//        if(!ObjectUtils.nullSafeEquals(schedule.getPassword(), request.getPassword())) {
+//            throw new InvalidPasswordException("비밀번호가 일치하지 않습니다.");
+//        }
+
 
         // 더티 체킹
         schedule.update(request.getTitle(), request.getAuthor());

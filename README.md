@@ -452,12 +452,14 @@ src/main/java/com/schedule/
                     │
                     ├── dto/          CreateScheduleRequestDto.java
                     │    ├──          CreateScheduleResponseDto.java
+                    │    ├──          CreateCommentRequestDto.java
+                    │    ├──          CreateCommentResponseDto.java
+                    │    ├──          DeleteScheduleResponseDto.java
                     │    ├──          GetScheduleResponseDto.java
                     │    ├──          UpdateScheduleRequestDto.java
                     │    ├──          UpdateScheduleResponseDto.java
                     │    └──          ErrorResponseDto.java
-                    ├── exception/    
-                    │    ├──          InvalidPasswordException.java
+                    ├── exception/    InvalidPasswordException.java     
                     │    ├──          InvalidRequestException.java
                     │    └──          ScheduleNotFoundException
                     │                        
