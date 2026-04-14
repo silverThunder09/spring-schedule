@@ -41,6 +41,14 @@ public class ScheduleService {
             throw new InvalidRequestException("비밀번호는 필수 값 입니다.");
         }
 
+        // 글자 수 제한 추가
+        if (request.getTitle().length() > 30) {
+            throw new InvalidRequestException("제목은 30자 이내여야 합니다.");
+        }
+        if (request.getContent().length() > 200) {
+            throw new InvalidRequestException("내용은 200자 이내여야 합니다.");
+        }
+
         Schedule schedule = new Schedule(
                 request.getTitle(),
                 request.getContent(),
