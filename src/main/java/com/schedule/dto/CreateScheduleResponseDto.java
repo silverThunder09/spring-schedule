@@ -4,6 +4,7 @@ import com.schedule.entity.Schedule;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class CreateScheduleResponseDto {
@@ -14,6 +15,9 @@ public class CreateScheduleResponseDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
+
+    private List<CreateCommentResponseDto> comments;
+
     public CreateScheduleResponseDto(Schedule schedule) {
         this.id         = schedule.getId();
         this.title      = schedule.getTitle();
@@ -22,5 +26,4 @@ public class CreateScheduleResponseDto {
         this.createdAt  = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
     }
-
 }

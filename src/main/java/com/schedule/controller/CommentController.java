@@ -2,7 +2,6 @@ package com.schedule.controller;
 
 import com.schedule.dto.CreateCommentRequestDto;
 import com.schedule.dto.CreateCommentResponseDto;
-import com.schedule.dto.CreateScheduleRequestDto;
 import com.schedule.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

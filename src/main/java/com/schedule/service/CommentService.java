@@ -2,7 +2,6 @@ package com.schedule.service;
 
 import com.schedule.dto.CreateCommentRequestDto;
 import com.schedule.dto.CreateCommentResponseDto;
-import com.schedule.dto.CreateScheduleRequestDto;
 import com.schedule.entity.Comment;
 import com.schedule.repository.CommentRepository;
 import com.schedule.repository.ScheduleRepository;

@@ -1,10 +1,12 @@
 package com.schedule.service;
 
 import com.schedule.dto.*;
+import com.schedule.entity.Comment;
 import com.schedule.entity.Schedule;
 import com.schedule.exception.InvalidPasswordException;
 import com.schedule.exception.InvalidRequestException;
 import com.schedule.exception.ScheduleNotFoundException;
+import com.schedule.repository.CommentRepository;
 import com.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public CreateScheduleResponseDto save(CreateScheduleRequestDto request) {
@@ -72,9 +75,17 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public GetScheduleResponseDto getOne(Long scheduleId) {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
-                () -> new ScheduleNotFoundException("해당 id에 대한 일정이 없습니다. id = " + scheduleId)
-        );
-        return new GetScheduleResponseDto(schedule);
+                () -> new ScheduleNotFoundException("해당 id에 대한 일정이 없습니다. id = " + scheduleId));
+
+        // 댓글 목록 조회
+        List<Comment> comments = commentRepository.findByScheduleId(scheduleId);
+
+        List<CreateCommentResponseDto> dtos = new ArrayList<>();
+        for(Comment comment : comments) {
+            dtos.add((new CreateCommentResponseDto(comment)));
+        }
+
+        return new GetScheduleResponseDto(schedule, dtos);
     }
 
     @Transactional
