@@ -208,12 +208,8 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 
 **실패 응답 예시**
 
-**400 Bad Request :** 조회 실패
+- 없음
 
-{
-
-    "error": "조회를 실패 하였습니다."
-}
 </details>
 
 # 단건 조회 API
@@ -452,6 +448,8 @@ Spring Boot와 JPA를 활용한 일정 관리 REST API 서버입니다.
 src/main/java/com/schedule/
                     ├── ScheduleApplication.java
                     ├── controller/   ScheduleController.java
+                    │    └──          CommenteController.java                   
+                    │
                     ├── dto/          CreateScheduleRequestDto.java
                     │    ├──          CreateScheduleResponseDto.java
                     │    ├──          GetScheduleResponseDto.java
@@ -464,9 +462,17 @@ src/main/java/com/schedule/
                     │    └──          ScheduleNotFoundException
                     │                        
                     ├── entity/       Schedule.java
-                    │                 BaseEntity.java
+                    │    ├──          Comment.java
+                    │    └──          BaseEntity.java
+                    │
                     ├── repository/   ScheduleRepository.java
+                    │    └──          CommentRepository.java
+                    │
                     └── service/      ScheduleService.java
+                         └──          CommenteService.java
+                    
+                    
+                    
 ```
 
 
